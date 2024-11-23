@@ -1,65 +1,55 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useQuery } from '@tanstack/react-query';
+// import axios from 'axios';
+import { AnimeData } from '../../types/anime';
 
 const baseUrl = import.meta.env.VITE_PUBLIC_API_BASE_URL
 
-type AnimeList = {
-     id: string,
-     url: string
-     image: string
-}
-
 const Home = () => {
-     const [loading, setLoading] = useState<boolean>(true)
-     const [anime, setAnime] = useState<AnimeList[]>([])
-
-     useEffect(() => {
-          setLoading(true)
-          const getAnimelist = async () => {
-               try {
-                    const response = await axios.get(`${baseUrl}/top/anime`)
-                    const data = response.data.data.map((item: any) => ({
-                         id: item.mal_id,
-                         url: item.url,
-                         image: item.images.jpg.image_url
-                    }))
-                    // console.log(data)
-
-                    setAnime(data)
-               } catch (error) {
-                    console.error(error)
-               } finally {
-                    setLoading(false)
-               }
+     const { data, error, isLoading } = useQuery({
+          queryKey: ['animeList'],
+          queryFn: async () => {
+               // Use Fetch
+               return await fetch(`${baseUrl}/anime`)
+                    .then(res => res.json())
+                    .then(res => res.data)
+               // Use Axios
+               // try {
+               //      // const response = await axios.get(`${baseUrl}/anime`)
+               //      // return response.data.data
+               // } catch (error) {
+               //      console.error(error)
+               // }
           }
+     })
 
-          getAnimelist()
-     }, [])
+     if (error) return 'An error has occurred: ' + error.message
+
      return (
-          <div className="bg-dark2">
-               <div>
-                    <h1>My Anime</h1>
+          <div className="bg-dark min-h-screen p-4">
+               <div className="mb-6">
+                    <h1 className="text-2xl font-bold">My Anime</h1>
                </div>
                <div>
-                    {loading ? (
-                         <>
-                              <p>Loading...</p>
-                         </>
+                    {isLoading ? (
+                         <div className="flex justify-center items-center">
+                              <p className='text-4xl text-white font-bold'>Loading...</p>
+                         </div>
                     ) : (
-                         <div className="grid grid-cols-4">
-                              {anime.map((item, index) => (
-                                   <div key={index} className="flex border rounded-sm">
-                                        <h1>{index + 1}</h1>
-                                        <a href={item?.url} target="_blank" rel="noreferrer">
-                                             <img src={item?.image} alt="Anime" />
+                         <div className='grid grid-cols-2 lg:grid-cols-5 gap-5 w-full'>
+                              {data.map((item: AnimeData) => (
+                                   <div key={item.mal_id}
+                                        className='flex flex-col justify-center items-center
+                                        border-b-4
+                                        rounded-2xl overflow-hidden '>
+                                        <a href={item?.url} target='_blank' rel='noreferrer'>
+                                             <img className='w-screen h-96' src={item?.images.jpg.image_url} alt='Anime' />
                                         </a>
                                    </div>
                               ))}
                          </div>
                     )}
                </div>
-          </div >
+          </div>
      )
 }
 
