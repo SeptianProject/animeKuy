@@ -10,17 +10,19 @@ const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(({
      ...props
 }, ref) => {
      return (
-          <div>
+          <div className="flex flex-col items-center">
                <input
-                    {...props}
                     ref={ref}
+                    {...props}
                     autoComplete="on"
                     className={`py-2 px-4 rounded-md w-64 border-none outline-none
                               focus:ring focus:ring-blue-600 transition-all duration-300
                               placeholder:text-secondary/60 placeholder:font-medium
                               ${error && 'focus:ring-red-600'}`} />
                {error && (
-                    <p className="text-redDanger text-[12px] text-start mt-1 text-red-500">{error.message}</p>
+                    <p className="text-redDanger text-[12px] text-start mt-1 w-64 text-red-500">
+                         {error.message}
+                    </p>
                )}
           </div>
      )

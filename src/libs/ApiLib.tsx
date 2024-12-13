@@ -15,8 +15,12 @@ export const getNestedAnimeResponse = async (resource: string, query: string) =>
      return response.flatMap((item: any) => item.entry)
 }
 
+export const registerAuth = async (data: Pick<LoginFormSchema, 'email' | 'password'>) => {
+     const response = await axios.post(`${REQRES_API_KEY}/register/`, data)
+     return response.data
+}
+
 export const loginAuth = async (data: Pick<LoginFormSchema, 'email' | 'password'>) => {
      const response = await axios.post(`${REQRES_API_KEY}/login/`, data)
-     console.log('response: ', response)
      return response.data
 }
