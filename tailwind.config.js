@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '425px',
+      },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
       },

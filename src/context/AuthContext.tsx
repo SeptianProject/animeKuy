@@ -2,21 +2,21 @@ import { z } from "zod";
 
 export const loginFormSchema = z.object({
      email: z.string()
-          .min(3, 'Email is required')
+          .min(1, 'Email is required')
           .email('Invalid email format'),
      password: z.string()
           .min(5, 'Password must be at least 5 characters')
-}).required()
+})
 
 export const registerFormSchema = z.object({
      email: z.string()
-          .min(3, 'Email is required')
+          .min(1, 'Email is required')
           .email('Invalid email format'),
      password: z.string()
           .min(5, 'Password must be at least 5 characters'),
      confirmPassword: z.string()
-}).required().refine((data) => data.password === data.confirmPassword, {
-     message: 'Password confirmation must match password',
+}).refine((data) => data.password === data.confirmPassword, {
+     message: 'Password do not match',
      path: ['confirmPassword']
 })
 

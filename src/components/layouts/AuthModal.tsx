@@ -27,7 +27,13 @@ const AuthModal: React.FC<AuthModalProps> = ({
           reset,
           formState: { errors }
      } = useForm<LoginFormSchema | RegisterFormSchema>({
-          resolver: zodResolver(authMode === 'login' ? loginFormSchema : registerFormSchema)
+          resolver: zodResolver(authMode === 'login' ? loginFormSchema : registerFormSchema),
+          mode: 'onBlur',
+          defaultValues: {
+               email: '',
+               password: '',
+               confirmPassword: ''
+          }
      })
 
      const loginMutation = useMutation({
@@ -48,7 +54,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                })
           },
           onError: (error: any) => {
-               console.log('error: ', error)
+               console.error('error: ', error)
                Swal.fire({
                     icon: 'error',
                     title: 'Login Gagal!',
@@ -78,7 +84,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                })
           },
           onError: (error: any) => {
-               console.log('error: ', error)
+               console.error('error: ', error)
                Swal.fire({
                     icon: 'error',
                     title: 'Register Gagal!',
@@ -100,8 +106,6 @@ const AuthModal: React.FC<AuthModalProps> = ({
           } else {
                registerMutation.mutate(data as RegisterFormSchema)
           }
-          console.log('email: ', data.email)
-          console.log('password: ', data.password)
      }
 
      return (
@@ -114,7 +118,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                handleSubmit={handleSubmit}
                onSubmit={onSubmit}
                register={register}
-               mutation={registerMutation}
+               mutation={authMode === 'login' ? loginMutation : registerMutation}
                errors={errors}
           />
      )

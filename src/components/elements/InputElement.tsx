@@ -2,7 +2,7 @@ import React from "react";
 import { FieldError } from "react-hook-form";
 
 interface InputElementProps extends React.InputHTMLAttributes<HTMLInputElement> {
-     error?: FieldError | undefined
+     error: FieldError | undefined
 }
 
 const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(({
@@ -13,12 +13,13 @@ const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(({
           <div className="flex flex-col items-center">
                <input
                     ref={ref}
-                    {...props}
                     autoComplete="on"
                     className={`py-2 px-4 rounded-md w-64 border-none outline-none
-                              focus:ring focus:ring-blue-600 transition-all duration-300
-                              placeholder:text-secondary/60 placeholder:font-medium
-                              ${error && 'focus:ring-red-600'}`} />
+                         focus:ring focus:ring-blue-600 transition-all duration-300
+                         placeholder:text-secondary/60 placeholder:font-medium
+                         ${error && 'focus:ring-red-600'}`}
+                    {...props}
+               />
                {error && (
                     <p className="text-redDanger text-[12px] text-start mt-1 w-64 text-red-500">
                          {error.message}

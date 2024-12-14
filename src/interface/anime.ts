@@ -62,20 +62,30 @@ export interface AnimeData {
      mal_id: number;
      url: string;
      images: ImageVariants
+     trailer: {
+          youtube_id: string;
+          url: string;
+          embed_url: string;
+     }
+     approved: boolean;
      titles: Titles
      title: string;
      title_english: string;
      title_japanese: string;
      title_synonyms: string[];
      type: string;
+     source: string;
      episodes: number;
      status: string;
+     airing: boolean;
      aired: Aired;
      duration: string;
      rating: string;
      score: number;
+     scored_by: number;
      rank: number;
-     popularity: number;
+     popularity: number
+     members: number;
      favorites: number;
      synopsis: string;
      backgroud: string;

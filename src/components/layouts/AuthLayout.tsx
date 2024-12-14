@@ -2,7 +2,7 @@
 import { FieldErrors, SubmitErrorHandler, SubmitHandler, UseFormRegister } from "react-hook-form";
 import ButtonElement from "../elements/ButtonElement";
 import InputElement from "../elements/InputElement";
-import React, { useEffect } from "react";
+import React from "react";
 import { UseMutationResult } from "@tanstack/react-query";
 import { BiX } from "react-icons/bi";
 
@@ -55,13 +55,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
      authMode,
      toggleAuthMode
 }) => {
-     const emailInputRef = React.useRef<HTMLInputElement>(null)
-
-     useEffect(() => {
-          if (isOpen) {
-               emailInputRef.current?.focus()
-          }
-     }, [isOpen, authMode])
 
      return (
           <div className={`w-4/5 md:w-1/2 lg:w-1/3 fixed top-1/2 left-1/2 transform -translate-x-1/2 
@@ -86,7 +79,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
                          <InputElement
                               {...register('email')}
                               type="email"
-                              ref={emailInputRef}
                               placeholder="Emailnya gan"
                               error={errors.email}
                          />
