@@ -15,7 +15,7 @@ const IconElement: React.FC<IconElementProps> = ({
      return (
           <IconElement
                onClick={onClick}
-               className={`size-7 md:size-10 text-white cursor-pointer
+               className={`size-6 text-white/80 cursor-pointer
                ${className}`}
           />
      );

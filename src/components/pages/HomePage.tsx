@@ -34,7 +34,7 @@ const HomePage = () => {
   if (hasError) return <ErrorElement />
 
   return (
-    <section className="relative flex flex-col items-center justify-center mx-auto pt-10 lg:pt-20 px-7 w-full">
+    <section className="relative flex-col items-center justify-center mx-auto pt-10 lg:pt-20 px-7 w-full min-h-screen bg-dark">
       <div className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${isOpen ? 'z-20 translate-x-0' : '-z-10 opacity-0 pointer-events-none'}`} />
       <AuthModal isOpen={isOpen} onClose={handleOnClose} />
       <div className="flex items-center justify-between w-full pb-10">
