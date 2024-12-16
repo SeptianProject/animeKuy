@@ -33,7 +33,7 @@ const DrawerLayout = () => {
                <div className={`
                fixed bg-secondary w-60 h-full z-30 top-20 border-r border-white/10
                transition-all duration-300 ease-in-out
-               ${subdrawerOpen ? 'translate-x-20' : '-translate-x-40 md:translate-x-20'}
+               ${subdrawerOpen ? 'translate-x-20' : '-translate-x-40'}
                ${isOpen ? '' : '-translate-x-60'}`}>
                     <ul className="p-5 space-y-4">
                          <li className="text-white/80 bg-white/10 py-2 px-4 rounded-lg
