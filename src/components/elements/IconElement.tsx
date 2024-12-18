@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 
 interface IconElementProps {
      icon: IconType
-     onClick?: () => void
+     onClick?: React.MouseEventHandler
      className?: string
 }
 

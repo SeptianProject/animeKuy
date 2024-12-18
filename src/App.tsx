@@ -3,6 +3,7 @@ import AppRouter from "./libs/AppRouter"
 import { SkeletonTheme } from "react-loading-skeleton"
 import DrawerLayout from "./components/layouts/DrawerLayout"
 import NavbarLayout from "./components/layouts/NavbarLayout"
+import ContentWrapper from "./components/pages/ContentWrapper"
 
 const App = () => {
   const queryClient = new QueryClient()
@@ -13,7 +14,9 @@ const App = () => {
         <div className="bg-dark selection:bg-primary selection:text-white overflow-hidden">
           <NavbarLayout />
           <DrawerLayout />
-          <AppRouter />
+          <ContentWrapper>
+            <AppRouter />
+          </ContentWrapper>
         </div>
       </SkeletonTheme>
     </QueryClientProvider>
