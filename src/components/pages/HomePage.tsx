@@ -19,6 +19,9 @@ const HomePage = () => {
       queryFn: () => getNestedAnimeResponse('recommendations/anime', 'entry')
     })
 
+  // const [showAuthModal, setShowAuthModal] = React.useState(true)
+  // const handleCloseAuthModal = () => setShowAuthModal(false)
+
   const hasError = topAnimeError || recommendationsError
   const hasLoading = topAnimeLoading || recommendationsLoading
 

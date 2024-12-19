@@ -3,8 +3,6 @@ import { AnimeData } from "../../interface/anime"
 import { useNavigate } from "react-router-dom"
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import SkeletonElement from "../elements/SkeletonElement"
-import useResponsiveDrawer from "../../hooks/useResponsiveDrawer"
-import { useAppSelector } from "../../redux/hooks"
 
 type AnimeGridProps = {
      isLoading: boolean
@@ -13,8 +11,6 @@ type AnimeGridProps = {
 
 const GridLayout: React.FC<AnimeGridProps> = ({ api, isLoading }) => {
      const navigate = useNavigate()
-     const isDrawerOpen = useAppSelector(state => state.drawer.isOpen)
-     useResponsiveDrawer()
 
      const handleOnDetail = (id: string) => {
           navigate(`/detail/${id}`)
@@ -46,10 +42,9 @@ const GridLayout: React.FC<AnimeGridProps> = ({ api, isLoading }) => {
                                    style: { transitionDelay: `${index * 0.3}s` }
                               }}
                               wrapperClassName="w-full h-full"
-                              className={`rounded-lg w-60 object-cover object-top border-2
-                                   border-white/20 transition-all duration-300
-                              ${isDrawerOpen ? 'h-44 xs:h-48 sm:h-[14rem]'
-                                        : 'h-56 xs:h-60 sm:h-[16rem] md:h-[20rem] md:w-[15rem]'}`}
+                              className={`rounded-lg w-60 h-56 xs:h-60 sm:h-[16rem] 
+                                   md:h-[20rem] md:w-[15rem] object-cover object-top border-2
+                                   border-white/20 transition-all duration-300`}
                          />
                     </div>
                ))}

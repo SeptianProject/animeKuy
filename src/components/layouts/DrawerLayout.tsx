@@ -1,21 +1,16 @@
-import React from "react"
 import IconElement from "../elements/IconElement"
 import { BiX } from "react-icons/bi"
 import { SiAstro } from "react-icons/si"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { toggleDrawer } from "../../redux/slices/drawerSlice"
-import { IconType } from "react-icons"
 import { useNavigate } from "react-router-dom"
+import DrawerItems, { DrawerItemConfig } from "../fragments/DrawerItems"
 import { MdHistory, MdSortByAlpha } from "react-icons/md"
-import { IoBookmarks } from "react-icons/io5"
 import { FaUser } from "react-icons/fa"
-import { BsFillQuestionCircleFill } from "react-icons/bs"
+import { BsBookmarksFill, BsFillQuestionCircleFill } from "react-icons/bs"
 import { IoMdSettings } from "react-icons/io"
+import React from "react"
 
-interface DrawerItemConfig {
-     icon: IconType
-     title: string
-}
 
 const DrawerLayout = () => {
      const isOpen = useAppSelector(state => state.drawer.isOpen)
@@ -24,33 +19,39 @@ const DrawerLayout = () => {
 
      const features: DrawerItemConfig[] = React.useMemo(() => [
           {
-               icon: MdHistory,
-               title: 'History'
-          },
-          {
                icon: MdSortByAlpha,
-               title: 'Alpha Years'
+               title: 'Alpha Years',
+               onClick: () => navigate('/alpha-years')
           },
           {
-               icon: IoBookmarks,
-               title: 'Bookmarks'
+               icon: MdHistory,
+               title: 'History',
+               onClick: () => navigate('/history')
+          },
+          {
+               icon: BsBookmarksFill,
+               title: 'Bookmarks',
+               onClick: () => navigate('/bookmarks')
           }
-     ], [])
+     ], [navigate])
 
      const informations: DrawerItemConfig[] = React.useMemo(() => [
           {
                icon: FaUser,
-               title: 'Profile'
+               title: 'Profile',
+               onClick: () => navigate('/profile')
           },
           {
                icon: BsFillQuestionCircleFill,
-               title: 'About'
+               title: 'About',
+               onClick: () => navigate('/about')
           },
           {
                icon: IoMdSettings,
-               title: 'Settings'
+               title: 'Settings',
+               onClick: () => navigate('/settings')
           }
-     ], [])
+     ], [navigate])
 
      const handleDrawerClose = () => {
           dispatch(toggleDrawer())
@@ -58,7 +59,7 @@ const DrawerLayout = () => {
 
      return (
           <>
-               <div className={`fixed left-0 w-48 h-full z-50 bg-dark border-r 
+               <div className={`fixed left-0 w-48 md:w-44 h-full z-50 bg-dark border-r 
                border-white/5 transition-all duration-300 ease-in-out
                ${isOpen ? '' : '-translate-x-full md:translate-x-0'}`}>
                     <ul className="flex flex-col items-start w-full pt-5 gap-y-8 px-5">
@@ -81,39 +82,11 @@ const DrawerLayout = () => {
                          </li>
                          <div className="flex flex-col gap-y-3 w-full items-start">
                               <h2 className="text-primary text-xs font-light">Features</h2>
-                              {features.map((item, index) => (
-                                   <li key={index}
-                                        className="flex items-center justify-start
-                                   hover:bg-white/10 rounded-md cursor-pointer group w-full
-                                   transition-all duration-300 ease-in-out">
-                                        <div className="p-2 flex items-center justify-center gap-x-2">
-                                             <IconElement
-                                                  icon={item.icon}
-                                                  className="text-white/60 group-hover:text-white" />
-                                             <span className="text-xs font-medium text-white/80 mt-1 group-hover:text-white">
-                                                  {item.title}
-                                             </span>
-                                        </div>
-                                   </li>
-                              ))}
+                              <DrawerItems drawerItems={features} />
                          </div>
                          <div className="flex flex-col gap-y-3 w-full items-start">
                               <h2 className="text-primary text-xs font-light">Information</h2>
-                              {informations.map((item, index) => (
-                                   <li key={index}
-                                        className="flex items-center justify-start
-                                   hover:bg-white/10 rounded-md cursor-pointer group w-full
-                                   transition-all duration-300 ease-in-out">
-                                        <div className="p-2 flex items-center justify-start gap-x-2">
-                                             <IconElement
-                                                  icon={item.icon}
-                                                  className="text-white/60 group-hover:text-white" />
-                                             <span className="text-xs font-medium text-white/80 mt-1 group-hover:text-white">
-                                                  {item.title}
-                                             </span>
-                                        </div>
-                                   </li>
-                              ))}
+                              <DrawerItems drawerItems={informations} />
                          </div>
                     </ul>
                </div>

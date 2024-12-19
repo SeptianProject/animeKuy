@@ -1,3 +1,54 @@
+export const animeDataHelpers = {
+     getMainTitle: (anime: AnimeData): string => {
+          if (anime.title_english) return anime.title_english;
+          if (anime.title_japanese) return anime.title_japanese;
+          return anime.title || 'Unknown Title';
+     },
+
+     getImageUrl: (images: ImageVariants): string => {
+          return images.webp.large_image_url ||
+               images.webp.image_url ||
+               images.jpg.large_image_url ||
+               images.jpg.image_url;
+     },
+
+     getAiredDate: (aired: Aired): string => {
+          const from = aired.prop.from;
+          const to = aired.prop.to;
+
+          if (!from.year) return 'Not yet aired';
+
+          const fromDate = `${from.year}-${String(from.month).padStart(2, '0')}-${String(from.day).padStart(2, '0')}`;
+
+          if (!to.year) return `From ${fromDate}`;
+
+          const toDate = `${to.year}-${String(to.month).padStart(2, '0')}-${String(to.day).padStart(2, '0')}`;
+          return `${fromDate} to ${toDate}`;
+     },
+
+     getBroadcastInfo: (broadcast: Broadcast): string => {
+          const parts = [];
+          if (broadcast.day) parts.push(broadcast.day);
+          if (broadcast.time) parts.push(`at ${broadcast.time}`);
+          if (broadcast.timezone) parts.push(`(${broadcast.timezone})`);
+
+          return parts.length > 0 ? parts.join(' ') : 'Broadcast information unavailable';
+     },
+
+     getEntityNames: (entities: BaseEntity[]): string => {
+          return entities.length > 0
+               ? entities.map(entity => entity.name).join(', ')
+               : 'None';
+     },
+
+     getSynopsisExcerpt: (synopsis: string): string => {
+          if (!synopsis) return 'No synopsis available';
+          const firstSentence = synopsis.split('.')[0];
+          return firstSentence ? `${firstSentence}.` : synopsis;
+     },
+}
+
+
 interface Titles {
      type: string;
      title: string;
@@ -31,7 +82,7 @@ interface BaseEntity {
      url: string;
 }
 
-interface ImageVariants {
+export interface ImageVariants {
      jpg: {
           image_url: string;
           small_image_url: string;

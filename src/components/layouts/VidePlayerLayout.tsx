@@ -1,6 +1,8 @@
 import React from 'react'
 import { BiX } from 'react-icons/bi'
 import YouTube, { YouTubeEvent } from 'react-youtube'
+import IconElement from '../elements/IconElement'
+import { RxVideo } from 'react-icons/rx'
 
 interface VidePlayerLayoutProps {
      youtubeId: string
@@ -22,7 +24,7 @@ const VidePlayerLayout: React.FC<VidePlayerLayoutProps> = ({ youtubeId }) => {
                <div className='fixed bottom-2 right-2'>
                     <div className=''>
                          <button onClick={handleVideoPlayer}
-                              className='border-2 border-white/30 bg-primary rounded-md float-right mb-2'>
+                              className='border-2 border-white/10 bg-dark rounded-md float-right mb-2'>
                               <BiX className='size-8' />
                          </button>
                          <YouTube
@@ -40,9 +42,9 @@ const VidePlayerLayout: React.FC<VidePlayerLayoutProps> = ({ youtubeId }) => {
                <div className='fixed bottom-5 right-5'>
                     <button
                          onClick={handleVideoPlayer}
-                         className='border-2 border-white/30 bg-primary rounded-md px-4 py-3
-                         text-sm font-medium'>
-                         Tonton Trailer
+                         className='border-2 border-white/10 bg-dark rounded-full p-2
+                         text-sm font-medium text-white/80'>
+                         <IconElement icon={RxVideo} className='size-7 ' />
                     </button>
                </div>
           )
